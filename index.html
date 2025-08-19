@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login y Registro</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f2f5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .container {
+      
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 100%;
+      padding: 1vh;
+      margin: 6px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background: #007bff;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    .switch {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #555;
+    }
+    .switch span {
+      color: #007bff;
+      cursor: pointer;
+    }
+    .error{
+      background-color: red;
+      width: 50%;
+      border-radius: 10px;
+      text-align: center;
+      margin: 10px;
+      font-family: sans-serif;
+      font-weight: 700;
+      font-size:medium;
+    }
+    .alertas2{
+      background-color: green;
+      width: 50%;
+      border-radius: 10px;
+      text-align: center;
+      margin: 10px;
+      font-family: sans-serif;
+      font-weight: 700;
+      font-size:medium;
+    }
+  </style>
+</head>
+<body>
+  <div class="error">
+    
+  </div>
+  <div class="alertas2">
+    
+  </div>
+  <div class="container" id="login-form">
+    <h2>Iniciar Sesión</h2>
+    <input type="text" id="login-user" placeholder="Usuario" />
+    <input type="password" id="login-pass" placeholder="Contraseña" />
+    <button id="login-btn" ><a href="./compras.html">Entrar</a></button>
+    <div class="switch">¿No tienes cuenta? <span id="switch-to-register" onclick="toggleForms()">Regístrate</span></div>
+  </div>
+  <div class="error">
+    
+  </div>
+  <div class="alertas2">
+    
+  </div>
+
+  <div class="container" id="register-form" style="display: none;">
+    <h2>Crear Cuenta</h2>
+    <input type="text" id="new-user" placeholder="Nuevo Usuario" />
+    <input type="password" id="new-pass" placeholder="Nueva Contraseña" />
+    <button id="register-btn" onclick="register()">Registrar</button>
+    <div class="switch">¿Ya tienes cuenta? <span id="switch-to-login" onclick="toggleForms()">Inicia sesión</span></div>
+  </div>
+
+  <script>
+    function toggleForms() {
+      const login = document.getElementById('login-form');
+      const register = document.getElementById('register-form');
+      login.style.display = login.style.display === 'none' ? 'block' : 'none';
+      register.style.display = register.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function register() {
+      const user = document.getElementById('new-user').value;
+      const pass = document.getElementById('new-pass').value;
+      if (user && pass) {
+        localStorage.setItem('user', user);
+        localStorage.setItem('pass', pass);
+        const alert = document.querySelector('.error');
+        const alertas2 = document.querySelector('.alertas2');
+        alertas2.innerHTML = "<p>Creada correctamente</p>"
+        setTimeout(() => {
+          alertas2.innerHTML = ""
+        }, 1000);
+        toggleForms();
+
+      } else {
+        const alert = document.querySelector('.error');
+        alert.innerHTML = "<p>Hubo un error</p>"
+        setTimeout(() => {
+          alert.innerHTML = ""
+        }, 1000);
+      }
+    }
+
+    function login() {
+      const user = document.getElementById('login-user').value;
+      const pass = document.getElementById('login-pass').value;
+
+      if (user === storedUser && pass === storedPass) {
+        const alert = document.querySelector('.error');
+        const alertas2 = document.querySelector('.alertas2');
+        alertas2.innerHTML = "<p>Creada correctamente</p>"
+        window.location.href = 'compras.html';
+      } else {
+        const alert = document.querySelector('.error');
+        alert.innerHTML = "<p>Hubo un error</p>"
+        setTimeout(() => {
+          alert.innerHTML = ""
+        }, 1000);
+      }
+    }
+  </script>
+
+</body>
+</html>
